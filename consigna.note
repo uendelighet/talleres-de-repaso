@@ -1,0 +1,56 @@
+Impares Coral; pares Juan
+Documentados, plssss
+
+1️⃣ Catálogo de Productos
+Mostrar productos con: precio, imagen, descripción.
+CRUD: agregar, editar y eliminar productos.
+Funcionalidades extras: filtrado por categoría o búsqueda.
+
+2️⃣ Lista de Tareas (To-Do App)
+Cada tarea tiene: título, descripción, estado (pendiente / completada).
+CRUD: crear tareas, marcar como completadas y eliminar.
+Filtros: ver solo tareas completadas o solo pendientes.
+
+3️⃣ Gestión de Inventario
+Lista de artículos en stock con: cantidad, proveedor, precio.
+CRUD: actualizar stock, agregar o eliminar productos.
+Alertas: notificación si la cantidad baja de cierto nivel.
+
+4️⃣ Agenda de Contactos
+Información de contacto: nombre, teléfono, email, dirección.
+CRUD: agregar, editar y eliminar contactos.
+Similar a la app de usuarios, pero enfocada en contactos personales.
+
+5️⃣ Biblioteca / Catálogo de Libros
+Datos por libro: título, autor, género, año de publicación.
+CRUD: agregar nuevos libros, editar información y eliminar.
+Filtros: por género o autor.
+
+6️⃣ Gestión de Reservas
+Ejemplos: hotel, restaurante, citas.
+Cada reserva tiene: fecha, cliente, servicio, estado.
+CRUD: crear, actualizar o cancelar reservas.
+
+7️⃣ Dashboard de Información en Tiempo Real
+Consumir datos desde una API externa (clima, cotización de criptos, noticias).
+Solo lectura o funcionalidad extra: agregar favoritos, comentarios.
+
+8️⃣ Banco / Gestión de Cuentas
+Entidades principales:
+Usuarios / Clientes: nombre, email, ID, tipo de cuenta.
+Cuentas bancarias: número de cuenta, saldo, tipo de cuenta, usuario asociado.
+Transacciones: depósito, retiro, transferencia; fecha, monto, cuenta origen/destino.
+
+Funcionalidades CRUD:
+Usuarios / Clientes: crear, editar, eliminar, listar.
+Cuentas: crear, actualizar, consultar saldo y transacciones.
+Transacciones: registrar, mostrar historial, filtrar por fecha o tipo.
+Extras:
+Alertas si saldo bajo cierto límite.
+Dashboard con totales de clientes, depósitos y transacciones recientes.
+Simulación de transferencias entre cuentas.
+Redux:
+userSlice → clientes
+accountSlice → cuentas
+transactionSlice → transacciones
+Thunks → manejar llamadas a API (simulada o real).
