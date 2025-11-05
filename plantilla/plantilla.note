@@ -1,0 +1,160 @@
+// ==============================
+// IMPORTS
+// ==============================
+import { createSlice, createAsyncThunk, configureStore } from '@reduxjs/toolkit'
+// createSlice → crea el slice del estado
+// createAsyncThunk → crea acciones asincrónicas con pending/fulfilled/rejected
+// configureStore → crea el store global
+
+import axios from 'axios'
+// axios → para llamadas HTTP (GET, POST, PUT, DELETE)
+
+import type { Entity } from '../types'
+// CAMBIA 'Entity' → tipo de tu entidad (Producto, Cliente, Tarea, Libro, etc.)
+
+// ==============================
+// ESTADO INICIAL
+// ==============================
+interface EntityState {
+  items: Entity[]        // CAMBIA 'items' → lista de tu entidad
+  loading: boolean       // estado de carga
+  error: string | null   // mensaje de error
+}
+
+const initialState: EntityState = {
+  items: [],        // empieza vacío
+  loading: false,
+  error: null
+}
+
+// ==============================
+// THUNKS - ACCIONES ASINCRÓNICAS
+// ==============================
+
+// FETCH → traer lista desde API
+export const fetchItems = createAsyncThunk(
+  'entity/fetch', // CAMBIA 'entity' → nombre de tu slice
+  async () => {
+    const response = await axios.get<Entity[]>('https://api.tuapp.com/entity')
+    return response.data // esto será action.payload
+  }
+)
+
+// CREATE → agregar nuevo item
+export const createItem = createAsyncThunk(
+  'entity/create',
+  async (newItem: Omit<Entity, 'id'>) => { // CAMBIA Entity + campos según tu entidad
+    const response = await axios.post<Entity>('https://api.tuapp.com/entity', newItem)
+    return response.data
+  }
+)
+
+// UPDATE → actualizar item existente
+export const updateItem = createAsyncThunk(
+  'entity/update',
+  async (item: Entity) => {
+    const response = await axios.put<Entity>(`https://api.tuapp.com/entity/${item.id}`, item)
+    return response.data
+  }
+)
+
+// DELETE → eliminar item
+export const deleteItem = createAsyncThunk(
+  'entity/delete',
+  async (id: number) => {
+    await axios.delete(`https://api.tuapp.com/entity/${id}`)
+    return id
+  }
+)
+
+// ==============================
+// SLICE - ESTADO Y LOGICA
+// ==============================
+const entitySlice = createSlice({
+  name: 'entity',       // CAMBIA 'entity' → nombre de tu slice
+  initialState,
+  reducers: {},         // reducers síncronos (si necesitas, puedes agregar)
+  extraReducers: (builder) => {
+
+    // ===== FETCH =====
+    builder.addCase(fetchItems.pending, (state) => {
+      state.loading = true
+      state.error = null
+    })
+    builder.addCase(fetchItems.fulfilled, (state, action) => {
+      state.loading = false
+      state.items = action.payload
+    })
+    builder.addCase(fetchItems.rejected, (state) => {
+      state.loading = false
+      state.error = 'Error al cargar items'
+    })
+
+    // ===== CREATE =====
+    builder.addCase(createItem.pending, (state) => {
+      state.loading = true
+      state.error = null
+    })
+    builder.addCase(createItem.fulfilled, (state, action) => {
+      state.loading = false
+      state.items.push(action.payload)
+    })
+    builder.addCase(createItem.rejected, (state) => {
+      state.loading = false
+      state.error = 'Error al crear item'
+    })
+
+    // ===== UPDATE =====
+    builder.addCase(updateItem.pending, (state) => {
+      state.loading = true
+      state.error = null
+    })
+    builder.addCase(updateItem.fulfilled, (state, action) => {
+      state.loading = false
+      const index = state.items.findIndex(i => i.id === action.payload.id)
+      if (index !== -1) state.items[index] = action.payload
+    })
+    builder.addCase(updateItem.rejected, (state) => {
+      state.loading = false
+      state.error = 'Error al actualizar item'
+    })
+
+    // ===== DELETE =====
+    builder.addCase(deleteItem.pending, (state) => {
+      state.loading = true
+      state.error = null
+    })
+    builder.addCase(deleteItem.fulfilled, (state, action) => {
+      state.loading = false
+      state.items = state.items.filter(i => i.id !== action.payload)
+    })
+    builder.addCase(deleteItem.rejected, (state) => {
+      state.loading = false
+      state.error = 'Error al eliminar item'
+    })
+  }
+})
+
+// ==============================
+// STORE GLOBAL
+// ==============================
+export const store = configureStore({
+  reducer: {
+    entity: entitySlice.reducer // CAMBIA 'entity' → nombre de tu slice
+  }
+})
+
+// ==============================
+// TYPESCRIPT HELPERS
+// ==============================
+export type RootState = ReturnType<typeof store.getState>
+export type AppDispatch = typeof store.dispatch
+
+// ==============================
+// 📌 INSTRUCCIONES DE INTERCAMBIO
+// ==============================
+// 1. Cambia 'Entity' en types.ts → define campos de tu proyecto
+// 2. Cambia nombres de slice ('entity') y thunks ('fetchItems', 'createItem', etc.)
+// 3. Cambia urls de la API simulada o real
+// 4. Cambia 'items' por un nombre más específico si quieres (productos, clientes, tareas)
+// 5. Mantén la lógica de pending/fulfilled/rejected igual
