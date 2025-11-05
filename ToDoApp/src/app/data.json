@@ -1,0 +1,64 @@
+{
+    "tasks": [
+        {
+            "id": 1,
+            "title": "Preparar presentación",
+            "description": "Diseñar diapositivas para la clase de algoritmos",
+            "status": "pendiente",
+            "createdAt": "2025-11-01T09:00:00Z",
+            "dueDate": "2025-11-10",
+            "priority": "alta",
+            "tags": ["clase", "presentación"]
+        },
+        {
+            "id": 2,
+            "title": "Entregar tarea 5",
+            "description": "Subir repositorio con CRUD de usuarios",
+            "status": "completada",
+            "createdAt": "2025-10-28T14:30:00Z",
+            "dueDate": "2025-11-03",
+            "priority": "media",
+            "tags": ["tarea", "CRUD"]
+        },
+        {
+            "id": 3,
+            "title": "Revisar código",
+            "description": "Hacer refactor y pruebas unitarias",
+            "status": "pendiente",
+            "createdAt": "2025-11-03T11:15:00Z",
+            "dueDate": "2025-11-12",
+            "priority": "alta",
+            "tags": ["codigo", "pruebas"]
+        },
+        {
+            "id": 4,
+            "title": "Configurar CI",
+            "description": "Agregar pipeline para lint y tests",
+            "status": "completada",
+            "createdAt": "2025-10-30T08:45:00Z",
+            "dueDate": "2025-11-05",
+            "priority": "baja",
+            "tags": ["infra", "ci"]
+        },
+        {
+            "id": 5,
+            "title": "Actualizar documentación",
+            "description": "Documentar endpoints y ejemplos de uso",
+            "status": "pendiente",
+            "createdAt": "2025-11-04T16:20:00Z",
+            "dueDate": "2025-11-15",
+            "priority": "media",
+            "tags": ["docs"]
+        },
+        {
+            "id": 6,
+            "title": "Reunión con el equipo",
+            "description": "Planificar entregables de la próxima semana",
+            "status": "completada",
+            "createdAt": "2025-11-02T10:00:00Z",
+            "dueDate": "2025-11-02",
+            "priority": "media",
+            "tags": ["reunión", "planning"]
+        }
+    ]
+}
